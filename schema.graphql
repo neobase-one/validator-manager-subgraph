@@ -1,0 +1,59 @@
+enum ValidatorStatus {
+    Unknown,
+    PendingAdded,
+    Active,
+    PendingRemoved,
+    Completed,
+    Invalidated,
+    Removed
+}
+
+enum DelegatorStatus {
+    Unknown,
+    PendingAdded,
+    Active,
+    PendingRemoved,
+    Removed
+}
+
+type Validation @entity {
+    id: Bytes!
+    nodeID: Bytes!
+    weight: BigInt!
+    status: ValidatorStatus!
+    startedAt: Timestamp
+    endTime: Timestamp
+}
+
+type Delegation @entity {
+    id: Bytes!
+    validationID: Bytes!
+    owner: Bytes!
+    weight: BigInt!
+    startedAt: Timestamp
+    endTime: Timestamp
+    status: DelegatorStatus!
+}
+
+type DelegationNFT @entity {
+    id: Bytes!
+    validationID: Bytes!
+    owner: Bytes!
+    weight: BigInt!
+    startedAt: Timestamp
+    endTime: Timestamp
+    status: DelegatorStatus!
+    tokenIDs: [BigInt!]!
+}
+
+type UptimeUpdates @entity {
+    id: ID!
+    validationID: Bytes!
+    uptimeSeconds: BigInt!
+    epoch: BigInt!
+}
+
+type ValidatorWeights @entity {
+    id: Bytes!
+    weight: BigInt!
+}

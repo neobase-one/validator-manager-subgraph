@@ -1,0 +1,52 @@
+specVersion: 1.2.0
+description: Validator Manager Subgraph
+repository: https://github.com/neobase-one/validator-manager-subgraph
+schema:
+  file: ./schema.graphql
+
+indexerHints:
+  prune: auto
+
+dataSources:
+  - kind: ethereum/contract
+    name: ERC721TokenStakingManager
+    network: beam
+    source:
+      address: '0x0000000000000000000000000000000000000000'
+      abi: ERC721TokenStakingManager
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Gravatar
+      abis:
+        - name: ERC721TokenStakingManager
+          file: ./abis/ERC721TokenStakingManager.json
+      eventHandlers:
+        - event: DelegatorAdded(indexed bytes32,indexed bytes32,indexed address,uint64,uint64,uint64,bytes32)
+          handler: handleDelegatorAdded
+        - event: DelegatorAddedNFT(indexed bytes32,indexed bytes32,indexed address,uint64,uint64,uint256[])
+          handler: handleDelegatorNFTAdded
+        - event: DelegatorRegistered(indexed bytes32,indexed bytes32,uint256)
+          handler: handleDelegatorRegistered
+        - event: DelegatorRemovalInitialized(indexed bytes32,indexed bytes32)
+          handler: handleDelegatorRemovalInitialized
+        - event: DelegationEnded(indexed bytes32,indexed bytes32,uint256,uint256)
+          handler: handleDelegationEnded
+        - event: UptimeUpdated(indexed bytes32,uint64,uint64)
+          handler: handleUptimeUpdated
+        - event: ValidationPeriodCreated(indexed bytes32,indexed bytes,indexed bytes32,uint64,uint64)
+          handler: handleValidationPeriodCreated
+        - event: InitialValidatorCreated(indexed bytes32,indexed bytes,uint64)
+          handler: handleInitialValidatorCreated
+        - event: ValidationPeriodRegistered(indexed bytes32,uint64,uint256)
+          handler: handleValidationPeriodRegistered
+        - event: ValidatorRemovalInitialized(indexed bytes32,indexed bytes32,uint64,uint256)
+          handler: handleValidatorRemovalInitialized
+        - event: ValidationPeriodEnded(indexed bytes32,indexed uint8)
+          handler: handleValidationPeriodEnded
+        - event: ValidatorWeightUpdate(indexed bytes32,indexed uint64,uint64,bytes32)
+          handler: handleValidatorWeightUpdate
+      file: ./src/mapping.ts
