@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.95.0"
+    "@graphprotocol/graph-cli": "^0.95.0",
+    "@graphprotocol/graph-ts": "^0.37.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

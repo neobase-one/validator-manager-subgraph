@@ -46,14 +46,14 @@ type DelegationNFT @entity {
     tokenIDs: [BigInt!]!
 }
 
-type UptimeUpdates @entity {
-    id: ID!
+type UptimeUpdate @entity {
+    id: Bytes!
     validationID: Bytes!
     uptimeSeconds: BigInt!
     epoch: BigInt!
 }
 
-type ValidatorWeights @entity {
+type ValidatorWeight @entity {
     id: Bytes!
     weight: BigInt!
 }
